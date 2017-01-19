@@ -36,6 +36,9 @@ Route::get('cart', 'CartController@index')->name('cart.index');
 Route::post('cart/cartAjax', 'CartController@cartAjax')->name('cart.ajax');
 
 
+Route::get('test', 'CartController@test');
+
+
 
 
 
