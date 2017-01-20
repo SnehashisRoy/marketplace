@@ -17,6 +17,7 @@ class CreateProductSizeTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('size');
+            $table->string('unique_product_key');
             $table->string('image');
             $table->float('price',5,2);
             $table->integer('stock');

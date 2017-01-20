@@ -52,7 +52,7 @@ class AdminController extends Controller
             ]);
        
 
-        $size = Size::addSizeDetail($request->file('photo'), $request->size, $request->stock, $request->price);
+        $size = Size::addSizeDetail($request->file('photo'), $request->size, $request->stock, $request->price,$id);
         Product::makeProduct($name)->sizes()->save($size);
         return redirect()->back();
          //before refactoring...

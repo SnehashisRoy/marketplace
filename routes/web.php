@@ -35,8 +35,12 @@ Route::post('products/addItem/{product_id}', 'ProductController@addItem')->name(
 Route::get('cart', 'CartController@index')->name('cart.index');
 Route::post('cart/cartAjax', 'CartController@cartAjax')->name('cart.ajax');
 
+Route::get('checkout', 'PaymentController@show')->name('payment.show');
 
-Route::get('test', 'CartController@test');
+Route::post('checkout', 'PaymentController@checkOut')->name('payment.checkout');
+
+
+//Route::get('test', 'CartController@test');
 
 
 
