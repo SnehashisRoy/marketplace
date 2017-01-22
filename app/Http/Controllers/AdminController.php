@@ -9,6 +9,18 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+   
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+
+
     public function createBasicProductInfo()
     {
     	return view('product.createbasicProductInfo');
@@ -25,6 +37,7 @@ class AdminController extends Controller
     		]);
     	$product= new Product($request->all());
         $request->user()->products()->save($product);
+        return redirect()->to('admin/product/'.$product->product_name);
 
     }
     public function createSizeDetail($name, Product $product)

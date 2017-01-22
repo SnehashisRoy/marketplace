@@ -15,8 +15,9 @@
 				
 			 </div>
 			<div class="col-md-12">
-			<h3> Existing Size of the Product</h3>
+			
 			@if($sizes)
+			<h3> Existing Size of the Product</h3>
 				@foreach($sizes as $size)
 					<form method="POST" action="{{route('product.updateSizeDetail', [$size->id]) }}" enctype="multipart/form-data"class ="form-inline">
 						{{ method_field('PATCH') }}

@@ -10,14 +10,13 @@
 			<div class="col-md-6">
 				<img id="img" class="img-responsive" src="/image/product/{{$product->sizes()->firstOrfail()->image}}">
 			<div class="col-md-4">
-				<form method="POST" action="{{route('product.addItem', [$product->id])}}">
+				<form method="POST" action="{{route('product.addItem')}}">
 					{{csrf_field()}}
-					<input type="hidden" id= "product_id" value="{{$product->id}}">
 					<div class="form-group">
 			 			    <label for="sizeOrColor">Size</label>
 			 			    <select type="text" class="form-control" id="sizeOrColor" name="sizeOrColor" onchange="updateSizeDetail();">
 			 			    	@foreach($product->sizes as $size)
-			 			    		<option value="{{$size->size}}">{{$size->size}}</option>
+			 			    		<option value="{{$size->unique_product_key}}">{{$size->size}}</option>
 			 			    	@endforeach
 			 			    </select>
 			 		</div>
@@ -46,12 +45,11 @@
 	<script>
 	function updateSizeDetail(){
 		var siz = $('#sizeOrColor').val();
-		var product = $('#product_id').val();
-				
+					
 		$.ajax({
 			url: "/products/productAjax",
 			type: "POST",
-			data: 'size='+ siz+'&product='+product,
+			data: 'size='+ siz,
 			dataType: "json",
 			success: function(data, status, http){
 				console.log(data);

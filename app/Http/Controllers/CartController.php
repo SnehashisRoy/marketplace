@@ -26,12 +26,5 @@ class CartController extends Controller
     	return json_encode($data);
     }
 
-    public function test()
-    {
-        echo($clientToken = Braintree_ClientToken::generate());
-    }
-
-
-
-    
+        
 }

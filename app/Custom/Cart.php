@@ -15,32 +15,30 @@ class Cart
 	
 	
 	protected $quantity;
-	protected $product_id;
-	protected $sizeOrColor;
+	protected $unique_product_key;
 	protected $image;
 	protected $productName;
 	protected $price;
 	protected $stock;
-	protected $cartKey;
-
-	public function __construct($quantity, $product_id, $sizeOrColor = null)
+	
+	public function __construct($quantity, $unique_product_key)
 	{
 		$this->quantity = $quantity;
-		$this->product_id = $product_id;
-		$this->sizeOrColor = $sizeOrColor;
+		$this->unique_product_key = $unique_product_key;
+		
 	}
 
 	
 	public function addItem()
 	{
 		$this->setCartProperties();
-		$data= array($this->cartKey=>[
+		$data= array($this->unique_product_key=>[
 								'image'=> $this->image,
 								'productName'=> $this->productName,
 								'stock'=>$this->stock,
 								'price'=> $this->price,
 								'quantity'=> $this->quantity,
-								'key'=> $this->cartKey,
+								'key'=> $this->unique_product_key,
 								'productSubTotal'=> $this->quantity * $this->price
 								]);
 		
@@ -49,11 +47,11 @@ class Cart
 			session( ['cart'=> $data]);
 			}else
 			{
-				if ($this->cartKeyExists($this->cartKey))
+				if ($this->cartKeyExists($this->unique_product_key))
 			{
 				$item = session('cart');
 				
-				$item[$this->cartKey]['quantity'] = $item[$this->cartKey]['quantity'] + 1;
+				$item[$this->unique_product_key]['quantity'] = $item[$this->unique_product_key]['quantity'] + 1;
 
 				session(['cart'=> $item]);
 			}else
@@ -67,13 +65,13 @@ class Cart
     
 	}
 
-	public function updateCart( $Key, $qnt)
+	/*public function updateCart( $Key, $qnt)
    	 {
    	 	$item = session('cart');
    	 	$item[$key]['quantity']= $item[$key][$qnt];
    	 	$item[$key]['productSubTotal'] = $item[$key]['quantity'] * $item[$key]['price'];
    	 	session(['cart'=> $item]);
-   	 }
+   	 }*/
 
 
 	protected function setCartProperties()
@@ -81,36 +79,28 @@ class Cart
 		$this->image= $this->makeSize()->image;
 		$this->stock = $this->makeSize()->stock;
 		$this->price = $this->makeSize()->price;
-		$this->productName= $this->makeProduct()->product_name;
-		$this->cartKey = $this->generateCartKey();
+		$this->productName= $this->makeSize()->product->product_name;
 	}
 	
 
 	protected function makeSize()
 	{
 		return Size::where([
-			'size'=> $this->sizeOrColor, 
-			'product_id'=> $this->product_id
+			'unique_product_key'=> $this->unique_product_key 
 			])
 		    ->firstOrfail();
 
 	}
-	protected function makeProduct()
-	{
-		return Product::where('id', $this->product_id)->firstOrfail();
-	}
-	protected function generateCartKey()
-	{
-		return $this->sizeOrColor !== null ? $this->product_id. $this->sizeOrColor : $this->product_id;
-	}
+	
+	
 	protected function hasStock()
 	{
 		return $this->stock>= $this->quantity? true: false;
 	}
 
-	protected function cartKeyExists($cartKey)
+	protected function cartKeyExists($Key)
 	{
-		return array_key_exists($cartKey, session('cart'))? true: false;
+		return array_key_exists($Key, session('cart'))? true: false;
 	}
 
 	

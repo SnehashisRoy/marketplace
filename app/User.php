@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Product');
     }
 
+    public function role()
+    {
+        return $this->hasOne('App\Role');
+    }
+
 
 
 }

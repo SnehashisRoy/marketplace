@@ -24,8 +24,9 @@ class PaymentController extends Controller
     {
     	$result=$payment->createTransaction($request->payment_method_nonce);
 
-
-    	dd($result);
+    	$result->success ? $payment->registerTransaction($result->transaction->id);
+                           : return redirect()->route('payment.show'); 
+    	
 
     }
 }

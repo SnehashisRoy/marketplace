@@ -34,6 +34,11 @@ class BraintreePayment
 		} 
 	}
 
+	public function registerTransaction($transaction_id)
+	{
+		
+	}
+
 	
 
 

@@ -25,7 +25,7 @@ class ProductController extends Controller
 
     public function productAjax(Request $request)
     {
-    	$size=Size::where(['size'=> $request->size, 'product_id'=> $request->product])->firstOrfail();
+    	$size=Size::where('unique_product_key', $request->size)->firstOrfail();
         $data= [
     		'imageUrl'=>$size->image,
     		'price'=> $size->price
@@ -34,9 +34,10 @@ class ProductController extends Controller
 
     }
 
-    public function addItem(Request $request, $product_id)
+    public function addItem(Request $request)
     {
-        (new Cart($request->qnt, $product_id, $request->sizeOrColor))->addItem();
+        
+        (new Cart($request->qnt, $request->sizeOrColor))->addItem();
 
         var_dump(session('cart'));
     }
