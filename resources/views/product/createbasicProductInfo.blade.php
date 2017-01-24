@@ -8,7 +8,8 @@
 		'submit'=> "Crteate Product",
 		'product_value'=> old('product_name'),
 		'description_value'=> old('description'),
-		'type_value'=>old('type')
+		'cat_value'=> old('cat')
+		
 		])
 				
 		</form>

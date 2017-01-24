@@ -18,7 +18,7 @@ class CreateProductTable extends Migration
             $table->string('product_name')->unique();
             $table->integer('user_id')->unsigned();
             $table->text('description');
-            $table->string('type');
+            $table->integer('category_id');
             $table->timestamps();
             $table->foreign('user_id')
                     ->references('id')->on('users')

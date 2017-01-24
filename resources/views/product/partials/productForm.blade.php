@@ -15,12 +15,15 @@
 						<div class="help-block">{{$errors->first('description')}}</div>
 					@endif 
 				</div>
+				
 				<div class="form-group">
-		 			    <label for="type">Type of Product:</label>
-		 			    <select type="text" class="form-control" id="type" name="type" value={{$type_value}}>
-		 			    	<option @if($type_value == 'sizes') selected='selected' @endif>sizes</option>
-		 			    	<option @if($type_value == 'colors') selected='selected' @endif>colors</option>
-		 			    	<option @if($type_value == 'plain') selected='selected' @endif>plain</option>
-		 			    </select>
-		 		</div>
+			 			    <label for="category_id">Category:</label>
+			 			    <select type="text" class="form-control" id="category_id" name="category_id">
+			 			    	@foreach($categories as $category)
+			 			    		<option value="{{$category->id}}"@if($cat_value==$category->id) selected @endif>{{$category->category}}</option>
+			 			    	@endforeach
+			 			    </select>
+			 		</div>
+
+				
 				<button type="submit" class="btn btn-success">{{$submit}}</button>

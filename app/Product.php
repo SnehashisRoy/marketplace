@@ -12,6 +12,7 @@ class Product extends Model
     		'description',
     		'user_id',
     		'type',
+            'category_id'
     ];
 
     public function user()
@@ -19,14 +20,19 @@ class Product extends Model
     	return $this->belongsTo('App\User');
     }
 
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
     public function sizes()
     {
     	return $this->hasMany('App\Size');
     }
 
-    public static function makeProduct($name)
+    public static function makeProduct($product_id)
     {
-    	return static::where('product_name', $name)->firstOrfail();
+    	return static::where('id', $product_id)->firstOrfail();
 
     }
    

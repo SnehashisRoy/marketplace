@@ -27,10 +27,10 @@ class Size extends Model
     	return $this->belongsTo('App\Product');
     }
 
-    public static function addSizeDetail(UploadedFile $file, $size, $stock,$price,$id)
+    public static function addSizeDetail(UploadedFile $file, $size, $stock,$price,$product_id)
     {
     	$sizeDetail = new static;
-    	$sizeDetail->saveAs($id, $size, $stock, $price, $file->getClientOriginalName());
+    	$sizeDetail->saveAs( $size, $stock, $price, $file->getClientOriginalName(), $product_id);
         $sizeDetail->moveImage($file);
         return $sizeDetail;
      
@@ -41,13 +41,13 @@ class Size extends Model
     	$file->move($this->baseDir, $this->image);
     }
 
-    public function saveAs($id, $size, $stock, $price,$image = null)
+    public function saveAs($size, $stock, $price, $image = null, $product_id = null)
     {
       $this->image = sprintf('%s-%s', time(), $image);
       $this->size= $size;
       $this->stock= $stock;
       $this->price= $price;
-      $this->unique_product_key= $id.$size;
+      $this->unique_product_key= $product_id.$size;
 
     } 
 

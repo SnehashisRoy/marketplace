@@ -3,21 +3,21 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			 <div class="col-md-12">
+			 <div class="col-md-4">
 				 <form>
 			  	@include('product.partials.productForm',[
 						'submit'=> "Update",
 						'product_value'=> $product->product_name,
 						'description_value'=> $product->description,
-						'type_value'=> $product->type
+						'cat_value'=> $product->category->id
 						])
 				</form>
 				
 			 </div>
-			<div class="col-md-12">
+			<div class="col-md-8">
 			
 			@if($sizes)
-			<h3> Existing Size of the Product</h3>
+
 				@foreach($sizes as $size)
 					<form method="POST" action="{{route('product.updateSizeDetail', [$size->id]) }}" enctype="multipart/form-data"class ="form-inline">
 						{{ method_field('PATCH') }}
@@ -39,11 +39,11 @@
 				@endforeach
 			@endif
 			</div> 
-			<h3> Create New Size of the Product</h3>
+			
 
-			 <div class="col-md-12">
-
-				   	<form method="POST" action="{{route('product.storeSizeDetail', [$product->product_name, $product->id]) }}" enctype="multipart/form-data"class ="form-inline">
+			 <div class="col-md-12" style="margin-top: 50px">
+				<h3> Create New Size of the Product</h3>
+				   	<form method="POST" action="{{route('product.storeSizeDetail', [$product->id]) }}" enctype="multipart/form-data"class ="form-inline">
 				     	@include('product.partials.sizeForm',[
 				   		'submit'=> 'Create Size Detail',
 				   		'price_value' => old('price'),

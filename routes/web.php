@@ -17,16 +17,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('admin/product/createWithSizes', 'AdminController@createWithSizes')->name('product.createWithsizes');
+/*Route::get('admin/product/createWithSizes', 'AdminController@createWithSizes')->name('product.createWithsizes');
 Route::post('admin/prodductWithSize', 'AdminController@storeWithSizes')->name('product.storeWithSizes');
+*/
 
 Route::get('home', 'HomeController@index');
 
 Route::get('admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 Route::get('admin/product/create', 'AdminController@createBasicProductInfo')->name('product.createBasicProductInfo');
+Route::get('admin/product/update', 'AdminController@updateProduct')->name('product.updateProduct');
 Route::post('admin/product', 'AdminController@storeBasicProductInfo')->name('product.storeBasicProductInfo');
 Route::get('admin/product/{name}', 'AdminController@createSizeDetail')->name('product.createSizeDetail');
-Route::post('admin/product/{name}/{id}', 'AdminController@storeSizeDetail')->name('product.storeSizeDetail');
+Route::post('admin/product/{product_id}', 'AdminController@storeSizeDetail')->name('product.storeSizeDetail');
 Route::patch('admin/product/{size_id}', 'AdminController@updateSizeDetail')->name('product.updateSizeDetail');
 
 Route::get('products', 'ProductController@index')->name('product.index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use App\Size;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -23,7 +24,8 @@ class AdminController extends Controller
 
     public function createBasicProductInfo()
     {
-    	return view('product.createbasicProductInfo');
+    	$data['categories']= Category::all();
+        return view('product.createbasicProductInfo', $data);
     }
 
     public function storeBasicProductInfo( Request $request)
@@ -32,7 +34,7 @@ class AdminController extends Controller
 
     		'product_name'=> 'required',
     		'description'=> 'required',
-            'type'=> 'required',
+            'category_id'=> 'required'
 
     		]);
     	$product= new Product($request->all());
@@ -45,18 +47,19 @@ class AdminController extends Controller
     	
     	$product= Product::where('product_name', $name)->firstorFail();
         $sizes=$product->sizes;
-       	$data['product']= $product;
+        $data['categories']= Category::all();
+        $data['product']= $product;
         $data['sizes'] = $sizes;
-       
+              
     	return view('product.createSizeDetail', $data);
     }
 
-    public function storeSizeDetail(Request $request, $name, $id)
+    public function storeSizeDetail(Request $request, $product_id)
     {
         $this->validate($request, [
             'size'=> [
                     'required',
-                     Rule::unique('product_size','size')->where('product_id', $id)
+                     Rule::unique('product_size','size')->where('product_id', $product_id)
                      ],
             
             'price'=> 'required|alpha_num',
@@ -65,21 +68,10 @@ class AdminController extends Controller
             ]);
        
 
-        $size = Size::addSizeDetail($request->file('photo'), $request->size, $request->stock, $request->price,$id);
-        Product::makeProduct($name)->sizes()->save($size);
+        $size = Size::addSizeDetail($request->file('photo'), $request->size, $request->stock, $request->price,$product_id);
+        Product::makeProduct($product_id)->sizes()->save($size);
         return redirect()->back();
-         //before refactoring...
-        //$file= $request->file('photo');
-        //$photoName = time().$file->getClientOriginalName();
-        //$file->move('image/product', $photoName);
-        /* Product::where('product_name', $name)->firstOrfali()->sizes()->create([
-                'size'=> $request->size,
-                'image'=>$photoName,
-                'price'=>$request->price,
-                'stock'=> $request->stock
-
-            ]);*/
-   
+         
     }
     public function updateSizeDetail(Request $request, $size_id)
     {
@@ -101,6 +93,11 @@ class AdminController extends Controller
 
     }
 
+    public function updateProduct()
+    {
+        $data['products']=Product::all();
+        return view('product.updateProduct', $data);
+    }
 
 
 
@@ -108,7 +105,8 @@ class AdminController extends Controller
 
 
 
-    public function createWithSizes()
+
+    /*public function createWithSizes()
     {
         return view('product.createWithsizes');
     }
@@ -134,6 +132,7 @@ class AdminController extends Controller
         $size = Size::addSizeDetail($request->file('photo'), $request->size, $request->stock, $request->price);
         $product->sizes()->save($size);
     }
+    */
 }
 
 
