@@ -4,6 +4,7 @@ namespace App\Custom;
 
 use App\Custom\cartTrait;
 use Braintree_Transaction;
+use Order;
 
 
 
@@ -33,18 +34,5 @@ class BraintreePayment
 				]);
 		} 
 	}
-
-	public function registerTransaction($transaction_id)
-	{
-		
-	}
-
-	
-
-
-
-	
-
-
 
 }

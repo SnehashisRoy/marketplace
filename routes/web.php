@@ -39,6 +39,8 @@ Route::post('products/addItem', 'ProductController@addItem')->name('product.addI
 Route::get('cart', 'CartController@index')->name('cart.index');
 Route::post('cart/cartAjax', 'CartController@cartAjax')->name('cart.ajax');
 
+Route::get('customer', 'PaymentController@customerInfo')->name('customer.info');     
+Route::post('customer', 'PaymentController@customerInfoIntoSession')->name('customer.info');     
 Route::get('checkout', 'PaymentController@show')->name('payment.show');
 Route::post('checkout', 'PaymentController@checkOut')->name('payment.checkout');
 

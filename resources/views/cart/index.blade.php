@@ -40,6 +40,7 @@
 						Shipping Cost:<h3 id= 'shippingCost'>{{$shippingCost}}</h3>
 						Total: <h2 id="total">{{$total}}</h2>
 						
+						
 					</div>	
 				</div>
 			</div>

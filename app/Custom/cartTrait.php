@@ -27,7 +27,8 @@ namespace App\Custom;
    	 {
    	 	return $this->shippingCost;
    	 }
-   	 public function getTotal()
+   	 
+     public function getTotal()
    	 {
    	 	return $this->getSubtotal()+ $this->getHst() + $this->getShippingCost();
    	 }

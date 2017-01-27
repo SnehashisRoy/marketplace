@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cust_id');
+            $table->integer('customer_id');
             $table->float('order_total');
             $table->string('transaction_id');
             $table->timestamps();
