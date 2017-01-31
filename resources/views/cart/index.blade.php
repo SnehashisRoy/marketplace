@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<!--Table to host the cart-->
 @section('content')
 		
 			<div class="container">

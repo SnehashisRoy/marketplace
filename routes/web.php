@@ -17,9 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/*Route::get('admin/product/createWithSizes', 'AdminController@createWithSizes')->name('product.createWithsizes');
-Route::post('admin/prodductWithSize', 'AdminController@storeWithSizes')->name('product.storeWithSizes');
-*/
 
 Route::get('home', 'HomeController@index');
 
@@ -45,7 +42,7 @@ Route::get('checkout', 'PaymentController@show')->name('payment.show');
 Route::post('checkout', 'PaymentController@checkOut')->name('payment.checkout');
 
 
-//Route::get('test', 'CartController@test');
+
 
 
 

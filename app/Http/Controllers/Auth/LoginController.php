@@ -37,7 +37,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
-
+    /**
+     * Method overwrites a method in a trait used by the controller.
+     * Checks the role of the user and, if admin, redirects to admin dashboard. 
+     */
     public function redirectPath()
     {
         if(Auth::user()->role()->firstOrfail()->role == 'admin'){
